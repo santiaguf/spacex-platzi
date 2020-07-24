@@ -15,10 +15,20 @@
             <div id="upcoming" class="card col-sm-3">
                 <div id="title-upcoming-container">
                     <h2>Next Launch</h2>
-                    <h3 id="title-upcoming"></h3>
-                    <img id="img-upcoming" src="" />
-                    <p id="date-upcoming"></p>
-                    <p id="countdown-upcoming"></p>
+                    <div id="title-upcoming-container">
+                        <h3 id="title-upcoming"></h3>
+                    </div>
+                    <div id="img-upcoming-container">
+                        <img id="img-upcoming" src="" />
+                    </div>
+                    <div id="date-upcoming-container">
+                        <span><strong>When:</strong></span>
+                        <p id="date-upcoming"></p>
+                    </div>
+                    <div id="countdown-upcoming-container">
+                        <span><strong>Countdown for next launch:</strong></span>
+                        <p id="countdown-upcoming"></p>
+                    </div>
                     <a href="" id="more-upcoming" class="btn btn-info">More info</a>
                 </div>
             </div>
@@ -41,13 +51,42 @@
         }
 
         function printUpcomingLaunch(result) {
-            console.log(result);
             const title = document.querySelector('#title-upcoming');
             title.textContent = `${result.name}`;
             const img = document.querySelector('#img-upcoming');
             img.setAttribute('src', `${result.links.patch.small}` );
             const date = document.querySelector('#date-upcoming');
             date.textContent = `${result.date_local}`;
+            getCountDownTimer(result.date_local);
+        }
+
+        function getCountDownTimer(launchDate){
+            // Set the date we're counting down to
+            var countDownDate = new Date(launchDate).getTime();
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the result in an element with id="countdown-upcoming"
+            document.getElementById("countdown-upcoming").innerHTML = days + "days " + hours + "hours " + minutes + "minutes " + seconds + "seconds ";
+
+            // If the count down is over, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown-upcoming").innerHTML = "EXPIRED";
+            }
+            }, 1000);
         }
 
         getUpcomingLaunch();
