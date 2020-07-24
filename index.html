@@ -16,10 +16,10 @@
                 <div id="title-upcoming-container">
                     <h2>Next Launch</h2>
                     <div id="title-upcoming-container">
-                        <h3 id="title-upcoming"></h3>
+                        <h4 id="title-upcoming"></h4>
                     </div>
                     <div id="img-upcoming-container">
-                        <img id="img-upcoming" src="" />
+                        <img id="img-upcoming" src="" width="60%" />
                     </div>
                     <div id="date-upcoming-container">
                         <span><strong>When:</strong></span>
@@ -32,32 +32,62 @@
                     <a href="" id="more-upcoming" class="btn btn-info">More info</a>
                 </div>
             </div>
+
+            <div id="latest" class="card col-sm-3">
+                <div id="title-latest-container">
+                    <h2>Last Launch</h2>
+                    <div id="title-latest-container">
+                        <h3 id="title-latest"></h3>
+                    </div>
+                    <div id="img-latest-container">
+                        <img id="img-latest" src="" />
+                    </div>
+                    <div id="date-latest-container">
+                        <span><strong>When:</strong></span>
+                        <p id="date-latest"></p>
+                    </div>
+                    <a href="" id="more-latest" class="btn btn-info">More info</a>
+                </div>
+            </div>
+
         </div>
     </section>
     <footer>
         <p>Developed by <a href="https://sb.js.org/">Santiago Bernal</a> - <a href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a></p>
     </footer>
     <script type="text/javascript">
-        function getUpcomingLaunch() {
+        function getLaunch(api,selector) {
             var requestOptions = {
             method: 'GET',
             redirect: 'follow'
             };
 
-            fetch("https://api.spacexdata.com/v4/launches/upcoming", requestOptions)
+            fetch(api, requestOptions)
             .then(response => response.json())
-            .then(result => printUpcomingLaunch(result[0]))
+            .then(result => printLaunch(result, selector))
             .catch(error => console.log('error', error));
         }
 
-        function printUpcomingLaunch(result) {
-            const title = document.querySelector('#title-upcoming');
+        function printLaunch(result, selector) {
+            const title = document.querySelector('#title'+selector);
             title.textContent = `${result.name}`;
-            const img = document.querySelector('#img-upcoming');
-            img.setAttribute('src', `${result.links.patch.small}` );
-            const date = document.querySelector('#date-upcoming');
+
+            const img = document.querySelector('#img'+selector);
+            let imgUrl = `${result.links.patch.small}`;
+
+            if(imgUrl == 'null' || imgUrl == null){
+                imgUrl = 'img/astronauta.png'
+                img.setAttribute('width','60%');
+            }
+
+            img.setAttribute('src', imgUrl);
+
+            const date = document.querySelector('#date'+selector);
             date.textContent = `${result.date_local}`;
-            getCountDownTimer(result.date_local);
+
+            if(selector == '-upcoming'){
+                getCountDownTimer(result.date_local);
+            }
         }
 
         function getCountDownTimer(launchDate){
@@ -89,7 +119,16 @@
             }, 1000);
         }
 
-        getUpcomingLaunch();
+        const apiBaseUrl = 'https://api.spacexdata.com/v4/';
+
+        const upcomingApi = apiBaseUrl+'launches/next';
+        const upcomingSelector = '-upcoming';
+
+        const latestApi = apiBaseUrl+'launches/latest';
+        const latestSelector = '-latest';
+
+        getLaunch(upcomingApi,upcomingSelector);
+        getLaunch(latestApi,latestSelector);
     </script>
 </body>
 </html>
