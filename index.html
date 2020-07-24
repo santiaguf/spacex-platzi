@@ -13,6 +13,13 @@
             background-color: #223945;
             color: white;
         }
+        footer {
+            background-color: #223945;
+            color: white;
+        }
+        #past-launches {
+            background-color: #f3f8fb
+        }
         .header {
             display: inline;
         }
@@ -26,7 +33,7 @@
         <img class="header" src="img/platzi-logo.png" height="100px">
         <img class="header" src="img/spacex-logo.png">
         <div class="description">
-            <p>App to show info about SpaceX launches, for Platzinautas like you!</p>
+            <p>Like <a href="https://spacex.com" target="_blank">SpaceX</a> and <a href="https://platzi.com/" target="_blank">Platzi</a>? look launches info, for Platzinautas like you!</p>
         </div>
     </header>
     <section>
@@ -69,8 +76,10 @@
                 </div>
             </div>
 
-            <div class="past-launches">
-
+            <div id="past-launches" class="past-launches card">
+                <h2>Past Launches</h2>
+                <ul id="past-launches-list">
+                </ul>
             </div>
         </div>
     </section>
@@ -78,7 +87,7 @@
         <p>Developed by <a href="https://sb.js.org/">Santiago Bernal</a> - <a href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a></p>
     </footer>
     <script type="text/javascript">
-        function getLaunch(api,selector) {
+        function getApiData(api,selector) {
             var requestOptions = {
             method: 'GET',
             redirect: 'follow'
@@ -141,6 +150,32 @@
             }, 1000);
         }
 
+        function getPastLaunches(api){
+            var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+            };
+
+            fetch(api, requestOptions)
+            .then(response => response.json())
+            .then(result => printPastLaunchesList(result))
+            .catch(error => console.log('error', error));
+        }
+
+        function printPastLaunchesList(result){
+            const launchesDiv = document.querySelector('#past-launches');
+            for(let count in result){
+                launchesDiv.appendChild(createP(result[count], count));
+            }
+        }
+
+        function createP(launch, count){
+            const paragraph = document.createElement('p');
+            paragraph.setAttribute("id", "item-"+count);
+            paragraph.textContent = `${launch.name}`;
+            return paragraph;
+        }
+
         const apiBaseUrl = 'https://api.spacexdata.com/v4/';
 
         const upcomingApi = apiBaseUrl+'launches/next';
@@ -149,8 +184,12 @@
         const latestApi = apiBaseUrl+'launches/latest';
         const latestSelector = '-latest';
 
-        getLaunch(upcomingApi,upcomingSelector);
-        getLaunch(latestApi,latestSelector);
+        const pastLaunchesApi = apiBaseUrl + 'launches/past';
+
+        getApiData(upcomingApi,upcomingSelector);
+        getApiData(latestApi,latestSelector);
+
+        getPastLaunches(pastLaunchesApi);
 
     </script>
 </body>
