@@ -12,8 +12,15 @@
     </header>
     <section>
         <div class="container">
-            <div id="upcoming">
-
+            <div id="upcoming" class="card col-sm-3">
+                <div id="title-upcoming-container">
+                    <h2>Next Launch</h2>
+                    <h3 id="title-upcoming"></h3>
+                    <img id="img-upcoming" src="" />
+                    <p id="date-upcoming"></p>
+                    <p id="countdown-upcoming"></p>
+                    <a href="" id="more-upcoming" class="btn btn-info">More info</a>
+                </div>
             </div>
         </div>
     </section>
@@ -28,13 +35,19 @@
             };
 
             fetch("https://api.spacexdata.com/v4/launches/upcoming", requestOptions)
-            .then(response => response.text())
-            .then(result => printUpcomingLaunch(result))
+            .then(response => response.json())
+            .then(result => printUpcomingLaunch(result[0]))
             .catch(error => console.log('error', error));
         }
 
         function printUpcomingLaunch(result) {
-
+            console.log(result);
+            const title = document.querySelector('#title-upcoming');
+            title.textContent = `${result.name}`;
+            const img = document.querySelector('#img-upcoming');
+            img.setAttribute('src', `${result.links.patch.small}` );
+            const date = document.querySelector('#date-upcoming');
+            date.textContent = `${result.date_local}`;
         }
 
         getUpcomingLaunch();
