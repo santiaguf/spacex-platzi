@@ -10,7 +10,34 @@
     <header>
         <h1>SpaceX - Platzi</h1>
     </header>
-    <section></section>
-    <footer></footer>
+    <section>
+        <div class="container">
+            <div id="upcoming">
+
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>Developed by <a href="https://sb.js.org/">Santiago Bernal</a> - <a href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a></p>
+    </footer>
+    <script type="text/javascript">
+        function getUpcomingLaunch() {
+            var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+            };
+
+            fetch("https://api.spacexdata.com/v4/launches/upcoming", requestOptions)
+            .then(response => response.text())
+            .then(result => printUpcomingLaunch(result))
+            .catch(error => console.log('error', error));
+        }
+
+        function printUpcomingLaunch(result) {
+
+        }
+
+        getUpcomingLaunch();
+    </script>
 </body>
 </html>
