@@ -78,8 +78,6 @@
 
             <div id="past-launches" class="past-launches card">
                 <h2>Past Launches</h2>
-                <ul id="past-launches-list">
-                </ul>
             </div>
         </div>
     </section>
@@ -140,12 +138,12 @@
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Output the result in an element with id="countdown-upcoming"
-            document.getElementById("countdown-upcoming").innerHTML = days + "days " + hours + "hours " + minutes + "minutes " + seconds + "seconds ";
+            document.getElementById('countdown-upcoming').innerHTML = days + 'days ' + hours + 'hours ' + minutes + 'minutes ' + seconds + 'seconds ';
 
             // If the count down is over, write some text
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("countdown-upcoming").innerHTML = "EXPIRED";
+                document.getElementById('countdown-upcoming').innerHTML = 'EXPIRED';
             }
             }, 1000);
         }
@@ -165,15 +163,27 @@
         function printPastLaunchesList(result){
             const launchesDiv = document.querySelector('#past-launches');
             for(let count in result){
-                launchesDiv.appendChild(createP(result[count], count));
+                launchesDiv.appendChild(createElement(result[count], count));
             }
         }
 
-        function createP(launch, count){
+        function createElement(launch, count){
+            const div = document.createElement('div');
+            div.setAttribute('id', 'card-'+count);
+            div.style.display = 'inline-block';
+
+            const link = document.createElement('a');
+            link.setAttribute('id', 'link-'+count);
+            link.setAttribute('class', 'badge badge-secondary');
+            link.setAttribute('href', 'launch.html?id='+`${launch.id}`);
+            div.appendChild(link);
+
             const paragraph = document.createElement('p');
-            paragraph.setAttribute("id", "item-"+count);
+            paragraph.setAttribute('id', 'item-'+count);
             paragraph.textContent = `${launch.name}`;
-            return paragraph;
+            link.appendChild(paragraph);
+
+            return div;
         }
 
         const apiBaseUrl = 'https://api.spacexdata.com/v4/';

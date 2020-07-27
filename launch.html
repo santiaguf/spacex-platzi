@@ -104,11 +104,15 @@
             details.textContent = `${result.details}`;
         }
 
-
         //get Launch ID
         let urlString = window.location.href;
         let url = new URL(urlString);
         let launchId = url.searchParams.get('id');
+
+        // if launch id is not present, we will use first launch id
+        if(launchId == null || launchId == 'null'){
+            launchId = '5eb87cd9ffd86e000604b32a';
+        }
 
         const apiBaseUrl = 'https://api.spacexdata.com/v4/launches/'+launchId;
 
