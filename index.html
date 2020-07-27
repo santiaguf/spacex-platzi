@@ -23,7 +23,7 @@
         .header {
             display: inline;
         }
-        .col-sm-3 {
+        .card {
             background-color: #f3f8fb;
             display: inline-block;
         }
@@ -38,46 +38,54 @@
     </header>
     <section>
         <div class="container">
-            <div id="upcoming" class="card col-sm-3">
-                <div id="upcoming-container">
-                    <h2>Next Launch</h2>
-                    <div id="title-upcoming-container">
-                        <h4 id="title-upcoming"></h4>
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div id="upcoming" class="card col-sm-3">
+                    <div id="upcoming-container">
+                        <h2>Next Launch</h2>
+                        <div id="title-upcoming-container">
+                            <h4 id="title-upcoming"></h4>
+                        </div>
+                        <div id="img-upcoming-container">
+                            <img id="img-upcoming" src="" width="60%" />
+                        </div>
+                        <div id="date-upcoming-container">
+                            <span><strong>When:</strong></span>
+                            <p id="date-upcoming"></p>
+                        </div>
+                        <div id="countdown-upcoming-container">
+                            <span><strong>Countdown for next launch:</strong></span>
+                            <p id="countdown-upcoming"></p>
+                        </div>
+                        <a href="" id="more-upcoming" class="btn btn-info">More info</a>
                     </div>
-                    <div id="img-upcoming-container">
-                        <img id="img-upcoming" src="" width="60%" />
-                    </div>
-                    <div id="date-upcoming-container">
-                        <span><strong>When:</strong></span>
-                        <p id="date-upcoming"></p>
-                    </div>
-                    <div id="countdown-upcoming-container">
-                        <span><strong>Countdown for next launch:</strong></span>
-                        <p id="countdown-upcoming"></p>
-                    </div>
-                    <a href="" id="more-upcoming" class="btn btn-info">More info</a>
                 </div>
-            </div>
 
-            <div id="latest" class="card col-sm-3">
-                <div id="title-latest-container">
-                    <h2>Last Launch</h2>
+                <div id="latest" class="card col-sm-3">
                     <div id="title-latest-container">
-                        <h3 id="title-latest"></h3>
+                        <h2>Last Launch</h2>
+                        <div id="title-latest-container">
+                            <h3 id="title-latest"></h3>
+                        </div>
+                        <div id="img-latest-container">
+                            <img id="img-latest" src="" />
+                        </div>
+                        <div id="date-latest-container">
+                            <span><strong>When:</strong></span>
+                            <p id="date-latest"></p>
+                        </div>
+                        <a href="" id="more-latest" class="btn btn-info">More info</a>
                     </div>
-                    <div id="img-latest-container">
-                        <img id="img-latest" src="" />
-                    </div>
-                    <div id="date-latest-container">
-                        <span><strong>When:</strong></span>
-                        <p id="date-latest"></p>
-                    </div>
-                    <a href="" id="more-latest" class="btn btn-info">More info</a>
                 </div>
+                <div class="col-sm-3"></div>
             </div>
 
-            <div id="past-launches" class="past-launches card">
-                <h2>Past Launches</h2>
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div id="past-launches" class="past-launches card col-sm-6">
+                    <h2>Past Launches</h2>
+                </div>
+                <div class="col-sm-3"></div>
             </div>
         </div>
     </section>
@@ -113,6 +121,9 @@
 
             const date = document.querySelector('#date'+selector);
             date.textContent = `${result.date_local}`;
+
+            const moreInfo = document.querySelector('#more'+selector);
+            moreInfo.setAttribute('href','launch.html?id='+`${result.id}`)
 
             if(selector == '-upcoming'){
                 getCountDownTimer(result.date_local);
@@ -170,6 +181,7 @@
         function createElement(launch, count){
             const div = document.createElement('div');
             div.setAttribute('id', 'card-'+count);
+            div.setAttribute('class','col-sm-6');
             div.style.display = 'inline-block';
 
             const link = document.createElement('a');
