@@ -178,9 +178,11 @@
             link.setAttribute('href', 'launch.html?id='+`${launch.id}`);
             div.appendChild(link);
 
+            let launchNumber =  parseInt(count)+1;
+
             const paragraph = document.createElement('p');
             paragraph.setAttribute('id', 'item-'+count);
-            paragraph.textContent = `${launch.name}`;
+            paragraph.textContent = launchNumber+". "+`${launch.name}`;
             link.appendChild(paragraph);
 
             return div;
