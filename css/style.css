@@ -1,0 +1,15 @@
+header {
+  background-color: #223945;
+  color: white;
+}
+footer {
+  background-color: #223945;
+  color: white;
+}
+.header {
+  display: inline;
+}
+.col-sm-6 {
+  background-color: #f3f8fb;
+  display: inline-block;
+}
