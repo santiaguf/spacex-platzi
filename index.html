@@ -3,10 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="web app to get info about spaceX launches.">
     <title>SpaceX Platzi</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" media="all" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/css/style.css" >
+    <style>
+        header {
+            background-color: #223945;
+            color: white;
+        }
+        footer {
+            background-color: #223945;
+            color: white;
+        }
+        .header {
+            display: inline;
+        }
+        .col-sm-6 {
+            background-color: #f3f8fb;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -38,7 +55,7 @@
                             <span><strong>Countdown for next launch:</strong></span>
                             <p id="countdown-upcoming"></p>
                         </div>
-                        <a href="" id="more-upcoming" class="btn btn-info">More info</a>
+                        <p>Interested in see video, date and other info? see <a href="" id="more-upcoming">More details</a></p>
                     </div>
                 </div>
 
@@ -55,7 +72,7 @@
                             <span><strong>When:</strong></span>
                             <p id="date-latest"></p>
                         </div>
-                        <a href="" id="more-latest" class="btn btn-info">More info</a>
+                        <p>Interested in see video, date and other info? see <a href="" id="more-latest">More details</a></p>
                     </div>
                 </div>
                 <div class="col-sm-3"></div>
