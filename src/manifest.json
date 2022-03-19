@@ -1,0 +1,21 @@
+{
+  "background_color": "#ffffff",
+  "description": "web app to get info about spaceX launches.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "platzinautas",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "platzinautas",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "categories": [],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "img/favicon.ico",
+      "type": "image/x-icon"
+    }
+  ],
+  "shortcuts": []
+}

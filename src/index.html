@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="web app to get info about spaceX launches.">
+    <meta name="description" content="Web app to get info about spaceX launches.">
     <title>SpaceX Platzi</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" media="all" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
@@ -47,6 +47,7 @@
             display: none;
         }
     </style>
+    <link rel='manifest' href='manifest.json'>
 </head>
 <body>
     <header>
@@ -123,6 +124,15 @@
             const pastLaunches = document.getElementById("past-launches-container");
             pastLaunches.classList.remove("hide");
         });
+
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+                navigator.serviceWorker
+                .register("/serviceWorker.js")
+                .then(res => console.log("service worker registered"))
+                .catch(err => console.log("service worker not registered", err))
+        })
+        }
     </script>
 </body>
 </html>
