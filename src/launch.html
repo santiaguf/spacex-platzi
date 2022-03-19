@@ -9,11 +9,11 @@
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <style>
         header {
-            background-color: #223945;
+            background-color: #595959;
             color: white;
         }
         footer {
-            background-color: #223945;
+            background-color: #595959;
             color: white;
         }
         .header {
@@ -23,15 +23,25 @@
             background-color: #f3f8fb;
             display: inline-block;
         }
+        .links:link {
+            color: #C9E09E;
+            background-color: transparent;
+            text-decoration: none;
+        }
+        .featured-launches-links {
+            color: #004BAD;
+            background-color: transparent;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1 class="header">Platzinauta</h1>
-        <img class="header" src="img/platzi-logo.png" height="100px">
-        <img class="header" src="img/spacex-logo.png">
+        <img class="header" src="img/platzi-logo.png" width="258px" height="100px" alt="Platzi logo">
+        <img class="header" src="img/SpaceX_logo_black.svg.png" width="332px" height="41px" alt="SpaceX logo">
         <div class="description">
-            <p>Like <a href="https://spacex.com" target="_blank">SpaceX</a> and <a href="https://platzi.com/" target="_blank">Platzi</a>? look launches info, for Platzinautas like you!</p>
+            <p>Like <a class="links" href="https://spacex.com" target="_blank">SpaceX</a> and <a class="links"  href="https://platzi.com/" target="_blank">Platzi</a>? look launches info, for Platzinautas like you!</p>
         </div>
     </header>
     <section>
@@ -42,11 +52,11 @@
                     <div id="launch-container">
                         <h2>Launch Details</h2>
                         <div id="title-launch-container">
-                            <h4 id="title-launch">
-                            </h4>
+                            <h3 id="title-launch">
+                            </h3>
                         </div>
                         <div id="img-launch-container">
-                            <img id="img-launch" src="" width="40%" />
+                            <img id="img-launch" src="" width="40%" height="40%" alt="mission logo" />
                         </div>
                         <div id="date-launch-container">
                             <span><strong>When:</strong></span>
@@ -54,7 +64,7 @@
                             </p>
                         </div>
                         <div id="video-launch-container">
-                            <iframe class="embed-responsive-item" id="video-launch" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe title="Mission video" class="embed-responsive-item" id="video-launch" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div id="details-launch-container">
                             <p id="details-launch">
@@ -69,7 +79,7 @@
         </div>
     </section>
     <footer>
-        <p>Developed by <a href="https://sb.js.org/">Santiago Bernal</a> - <a href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a></p>
+        <p>Developed by <a class="links" href="https://sb.js.org/">Santiago Bernal</a> - <a class="links" href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a></p>
     </footer>
     <script defer type="text/javascript" src="js/launch.js"></script>
 </body>
