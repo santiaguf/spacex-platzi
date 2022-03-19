@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="web app to get info about spaceX launches.">
+    <meta name="description" content="Web app to get info about spaceX launches.">
+    <meta name="theme-color" content="#97ca3e"/>
     <title>SpaceX Platzi</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" media="all" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="img/AppImages/ios/192.png">
     <style>
         header {
             background-color: #595959;
@@ -33,7 +35,21 @@
             background-color: transparent;
             text-decoration: none;
         }
+        .past-launches {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .launch-title-card {
+            margin: 1%;
+        }
+        .hide {
+            display: none;
+        }
     </style>
+    <link rel='manifest' href='manifest.json'>
 </head>
 <body>
     <header>
@@ -90,10 +106,13 @@
 
             <div class="row">
                 <div class="col-sm-3"></div>
-                <div id="past-launches" class="past-launches card col-sm-6">
-                    <h2>Past Launches</h2>
+                <div class="col-sm-6">
+                    <h2 id="past-launches-title" class="btn btn-secondary">List Past Launches</h2>
                 </div>
                 <div class="col-sm-3"></div>
+            </div>
+            <div class="row hide" id="past-launches-container">
+                <div id="past-launches" class="past-launches card col-sm-12"></div>
             </div>
         </div>
     </section>
@@ -101,5 +120,21 @@
         <p>Developed by <a class="links" href="https://sb.js.org/">Santiago Bernal</a> - <a class="links" href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a></p>
     </footer>
     <script defer type="text/javascript" src="js/launches.js"></script>
+    <script defer type="text/javascript">
+        const btnListPastLaunches = document.getElementById("past-launches-title");
+        btnListPastLaunches.addEventListener("click", () => {
+            const pastLaunches = document.getElementById("past-launches-container");
+            pastLaunches.classList.remove("hide");
+        });
+
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+                navigator.serviceWorker
+                .register("/serviceWorker.js")
+                .then(res => console.log("service worker registered"))
+                .catch(err => console.log("service worker not registered", err))
+        })
+        }
+    </script>
 </body>
 </html>
