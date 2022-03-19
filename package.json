@@ -4,9 +4,13 @@
   "description": "A web application that shows info of SpaceX, using spaceX rest API",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "eslint": "eslint --ext .js src/ test/",
+    "pretest": "npm run eslint && npm run htmlhint",
+    "test": "jest --verbose --coverage",
+    "open-coverage-report": "opener ./coverage/lcov-report/index.html",
+    "start": "serve src/"
   },
   "repository": {
     "type": "git",
@@ -30,6 +34,12 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.1",
-    "localtunnel": "^2.0.2"
+    "localtunnel": "^2.0.2",
+    "serve": "^13.0.2"
+  },
+  "dependencies": {
+    "htmlhint": "^1.1.2",
+    "jest": "^27.5.1",
+    "opener": "^1.5.2"
   }
 }
