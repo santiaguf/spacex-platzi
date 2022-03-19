@@ -67,8 +67,7 @@ function getApiData(api, selector) {
 function createElement(launch, count) {
   const div = document.createElement('div');
   div.setAttribute('id', `card-${count}`);
-  div.setAttribute('class', 'col-sm-6');
-  div.style.display = 'inline-block';
+  div.setAttribute('class', 'launch-title-card');
 
   const link = document.createElement('a');
   link.setAttribute('id', `link-${count}`);

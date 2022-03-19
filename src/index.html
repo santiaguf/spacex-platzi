@@ -33,6 +33,19 @@
             background-color: transparent;
             text-decoration: none;
         }
+        .past-launches {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .launch-title-card {
+            margin: 1%;
+        }
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -90,10 +103,13 @@
 
             <div class="row">
                 <div class="col-sm-3"></div>
-                <div id="past-launches" class="past-launches card col-sm-6">
-                    <h2>Past Launches</h2>
+                <div class="col-sm-6">
+                    <h2 id="past-launches-title" class="btn btn-secondary">List Past Launches</h2>
                 </div>
                 <div class="col-sm-3"></div>
+            </div>
+            <div class="row hide" id="past-launches-container">
+                <div id="past-launches" class="past-launches card col-sm-12"></div>
             </div>
         </div>
     </section>
@@ -101,5 +117,12 @@
         <p>Developed by <a class="links" href="https://sb.js.org/">Santiago Bernal</a> - <a class="links" href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a></p>
     </footer>
     <script defer type="text/javascript" src="js/launches.js"></script>
+    <script defer type="text/javascript">
+        const btnListPastLaunches = document.getElementById("past-launches-title");
+        btnListPastLaunches.addEventListener("click", () => {
+            const pastLaunches = document.getElementById("past-launches-container");
+            pastLaunches.classList.remove("hide");
+        });
+    </script>
 </body>
 </html>
