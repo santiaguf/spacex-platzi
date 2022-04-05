@@ -1,10 +1,13 @@
 {
-  "extends": ["airbnb"],
-  "parser": "babel-eslint",
-  "globals": {
-      "document": true,
-      "foo": true,
-      "window": true,
-      "fetch": false
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-console": "warn"
   }
 }
