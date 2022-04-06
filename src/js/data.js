@@ -1,11 +1,14 @@
-export const getApiResponse = (url, callback) => {
+export const getApiResponse = async (url) => {
   const requestOptions = {
     method: 'GET',
     redirect: 'follow',
   };
 
-  fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((result) => callback(result))
-    .catch((error) => console.log('error', error));
+  try {
+    const response = await fetch(url, requestOptions);
+    const jsonResult = await response.json();
+    return jsonResult;
+  } catch (error) {
+    return `error: ${error}`;
+  }
 }

@@ -1,3 +1,5 @@
+import { getApiResponse } from './data.js';
+
 /* eslint-disable no-console */
 function getCountDownTimer(launchDate) {
   // Set the date we're counting down to
@@ -52,18 +54,6 @@ function printLaunch(result, selector) {
   }
 }
 
-function getApiData(api, selector) {
-  const requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-  };
-
-  fetch(api, requestOptions)
-    .then((response) => response.json())
-    .then((result) => printLaunch(result, selector))
-    .catch((error) => console.log('error', error));
-}
-
 function createElement(launch, count) {
   const div = document.createElement('div');
   div.setAttribute('id', `card-${count}`);
@@ -90,18 +80,6 @@ function printPastLaunchesList(result) {
   Object.keys(result).forEach((k) => launchesDiv.appendChild(createElement(result[k], k)));
 }
 
-function getPastLaunches(api) {
-  const requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-  };
-
-  fetch(api, requestOptions)
-    .then((response) => response.json())
-    .then((result) => printPastLaunchesList(result))
-    .catch((error) => console.log('error', error));
-}
-
 const apiBaseUrl = 'https://api.spacexdata.com/v4/';
 
 const upcomingApi = `${apiBaseUrl}launches/next`;
@@ -112,7 +90,14 @@ const latestSelector = '-latest';
 
 const pastLaunchesApi = `${apiBaseUrl}launches/past`;
 
-getApiData(upcomingApi, upcomingSelector);
-getApiData(latestApi, latestSelector);
+getApiResponse(upcomingApi)
+  .then((result) => printLaunch(result, upcomingSelector))
+  .catch((error) => console.log('error', error));
 
-getPastLaunches(pastLaunchesApi);
+getApiResponse(latestApi)
+  .then((result) => printLaunch(result, latestSelector))
+  .catch((error) => console.log('error', error));
+
+getApiResponse(pastLaunchesApi)
+  .then((result) => printPastLaunchesList(result))
+  .catch((error) => console.log('error', error));
