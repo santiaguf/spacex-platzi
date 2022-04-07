@@ -15,16 +15,15 @@ beforeEach(() => {
 });
 
 describe('getApiResponse', () => {
+  it('is a function', () => {
+    expect(typeof getApiResponse).toBe('function');
+  });
+
   it("return static fire date in unix format", async () => {
     const result = await getApiResponse(firtsLaunchEndPoint);
 
     expect(result).toEqual({ "static_fire_date_unix": 1142553600 });
     expect(fetch).toHaveBeenCalledTimes(1);
   });
-});
 
-describe('getApiResponse', () => {
-  it('is a function', () => {
-    expect(typeof getApiResponse).toBe('function');
-  });
 });
