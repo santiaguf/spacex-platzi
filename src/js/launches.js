@@ -39,6 +39,8 @@ function printLaunch(result, selector) {
   if (imgUrl === 'null' || imgUrl == null) {
     imgUrl = 'img/astronauta.png';
     img.setAttribute('width', '60%');
+    img.setAttribute('height', '60%');
+    img.setAttribute('alt', 'mission logo');
   }
 
   img.setAttribute('src', imgUrl);
