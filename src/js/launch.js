@@ -1,3 +1,5 @@
+import { getApiResponse } from './data.js';
+
 /* eslint-disable no-console */
 function printLaunch(result) {
   const title = document.querySelector('#title-launch');
@@ -26,18 +28,6 @@ function printLaunch(result) {
   details.textContent = `${result.details}`;
 }
 
-function getApiData(api) {
-  const requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-  };
-
-  fetch(api, requestOptions)
-    .then((response) => response.json())
-    .then((result) => printLaunch(result))
-    .catch((error) => console.log('error', error));
-}
-
 // get Launch ID
 const urlString = window.location.href;
 const url = new URL(urlString);
@@ -50,4 +40,6 @@ if (launchId == null || launchId === 'null') {
 
 const apiBaseUrl = `https://api.spacexdata.com/v4/launches/${launchId}`;
 
-getApiData(apiBaseUrl);
+getApiResponse(apiBaseUrl)
+  .then((result) => printLaunch(result))
+  .catch((error) => console.log('error', error));
