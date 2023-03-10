@@ -82,7 +82,7 @@ function printPastLaunchesList(result) {
   Object.keys(result).forEach((k) => launchesDiv.appendChild(createElement(result[k], k)));
 }
 
-const apiBaseUrl = 'https://api.spacexdata.com/v4/';
+const apiBaseUrl = 'https://api.spacexdata.com/v5/';
 
 const upcomingApi = `${apiBaseUrl}launches/next`;
 const upcomingSelector = '-upcoming';
