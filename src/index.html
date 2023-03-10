@@ -6,13 +6,39 @@
     <meta name="description" content="Web app to get info about spaceX launches.">
     <meta name="theme-color" content="#97ca3e"/>
     <title>SpaceX Platzi</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" media="all" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="img/AppImages/ios/192.png">
     <style>
         header {
             background-color: #595959;
             color: white;
+        }
+        #headerone{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 0%;
+        }
+        #headertwo{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .card{
+            display: flex;
+            width: 50%;
+            justify-content: center;
+            background-color: #9191915b;
+            border-radius: 10%;
+            margin: 5%;
+        }
+        
+        .row{
+            display: flex;
+            
+            
+
         }
         footer {
             background-color: #595959;
@@ -53,18 +79,23 @@
 </head>
 <body>
     <header>
+        <div id="headerone">
         <h1 class="header">Platzinauta</h1>
+        <div class="description">
+            <h2>Like <a class="links" href="https://spacex.com" target="_blank">SpaceX</a> and <a class="links"  href="https://platzi.com/" target="_blank">Platzi</a>? look launches info, for Platzinautas like you!</h2>
+        </div>
+        </div>
+        <div id="headertwo">
         <img class="header" src="img/platzi-logo.png" width="258px" height="100px" alt="Platzi logo">
         <img class="header" src="img/SpaceX_logo_black.svg.png" width="332px" height="41px" alt="SpaceX logo">
-        <div class="description">
-            <p>Like <a class="links" href="https://spacex.com" target="_blank">SpaceX</a> and <a class="links"  href="https://platzi.com/" target="_blank">Platzi</a>? look launches info, for Platzinautas like you!</p>
         </div>
+        
     </header>
     <section>
         <div class="container">
             <div class="row">
                 <div class="col-sm-3"></div>
-                <div id="upcoming" class="card col-sm-3">
+                <div id="upcoming" class="card">
                     <div id="upcoming-container">
                         <h2>Next Launch</h2>
                         <div id="title-upcoming-container">
@@ -85,7 +116,7 @@
                     </div>
                 </div>
 
-                <div id="latest" class="card col-sm-3">
+                <div id="latest" class="card">
                     <div id="latest-container">
                         <h2>Last Launch</h2>
                         <div id="title-latest-container">
