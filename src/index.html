@@ -36,20 +36,23 @@
         
         .row{
             display: flex;
-            
-            
-
+        }
+        #ListP{
+            justify-content: center;
+            margin-bottom: 2%;
         }
         footer {
             background-color: #595959;
             color: white;
+            display: flex;
+            justify-content: center;
         }
         .header {
             display: inline;
         }
         .col-sm-6 {
-            background-color: #f3f8fb;
-            display: inline-block;
+            background-color: #e7e7e752;
+            padding: .5%;
         }
         .links:link {
             color: #C9E09E;
@@ -135,14 +138,14 @@
                 <div class="col-sm-3"></div>
             </div>
 
-            <div class="row">
+            <div id="ListP" class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
                     <h2 id="past-launches-title" class="btn btn-secondary">List Past Launches</h2>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
-            <div class="row hide" id="past-launches-container">
+            <div class="hide" id="past-launches-container">
                 <div id="past-launches" class="past-launches card col-sm-12"></div>
             </div>
         </div>
