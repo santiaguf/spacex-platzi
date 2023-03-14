@@ -33,13 +33,22 @@
             border-radius: 10%;
             margin: 5%;
         }
+        .card-container{
+            display:block;
+            text-align: center;
+        }
         
         .row{
             display: flex;
-        }
-        #ListP{
             justify-content: center;
-            margin-bottom: 2%;
+        }
+        #btn-one{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        button{
+            padding: 1%;
         }
         footer {
             background-color: #595959;
@@ -50,10 +59,7 @@
         .header {
             display: inline;
         }
-        .col-sm-6 {
-            background-color: #e7e7e752;
-            padding: .5%;
-        }
+    
         .links:link {
             color: #C9E09E;
             background-color: transparent;
@@ -72,7 +78,10 @@
             align-items: center;
         }
         .launch-title-card {
-            margin: 1%;
+        margin: 1%;
+        padding: 1%;
+        border-radius: 1em;
+        background-color: #e7e7e752;
         }
         .hide {
             display: none;
@@ -99,7 +108,7 @@
             <div class="row">
                 <div class="col-sm-3"></div>
                 <div id="upcoming" class="card">
-                    <div id="upcoming-container">
+                    <div id="upcoming-container" class="card-container">
                         <h2>Next Launch</h2>
                         <div id="title-upcoming-container">
                             <h3 id="title-upcoming"></h3>
@@ -120,7 +129,7 @@
                 </div>
 
                 <div id="latest" class="card">
-                    <div id="latest-container">
+                    <div id="latest-container" class="card-container">
                         <h2>Last Launch</h2>
                         <div id="title-latest-container">
                             <h3 id="title-latest"></h3>
@@ -137,16 +146,11 @@
                 </div>
                 <div class="col-sm-3"></div>
             </div>
-
-            <div id="ListP" class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                    <h2 id="past-launches-title" class="btn btn-secondary">List Past Launches</h2>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
+                <div id="btn-one">
+                    <button  class="btn btn-secondary">List Past Launches</button>
+                </div>    
             <div class="hide" id="past-launches-container">
-                <div id="past-launches" class="past-launches card col-sm-12"></div>
+                <div id="past-launches" class="past-launches btnlaunches"></div>
             </div>
         </div>
     </section>
