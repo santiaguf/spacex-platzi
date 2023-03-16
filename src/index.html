@@ -46,6 +46,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            margin-bottom: 2%;
         }
         button{
             padding: 1%;
@@ -86,6 +87,30 @@
         .hide {
             display: none;
         }
+
+        @media (max-width: 480px) {
+        #headerone{
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        #headertwo{
+            display: flex;
+            flex-direction: column-reverse;
+            padding-left: 5%;
+        }
+        .row{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card{
+            width: 90%;
+        }
+        
+        }
+
+
     </style>
     <link rel="manifest" href="manifest.json">
 </head>
