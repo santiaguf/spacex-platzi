@@ -12,6 +12,11 @@
         header {
             background-color: #595959;
             color: white;
+            width:100%;
+        }
+        header img{
+            max-width: 100%;
+            height: auto;
         }
         #headerone{
             display: flex;
@@ -21,6 +26,7 @@
         }
         #headertwo{
             display: flex;
+            width: 100%;
             justify-content: space-around;
             align-items: center;
         }
@@ -88,16 +94,12 @@
             display: none;
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 751px) {
+
         #headerone{
             display: flex;
             flex-direction: column;
             text-align: center;
-        }
-        #headertwo{
-            display: flex;
-            flex-direction: column-reverse;
-            padding-left: 5%;
         }
         .row{
             display: flex;
@@ -106,7 +108,7 @@
         }
         .card{
             width: 90%;
-        }
+        } 
         
         }
 
@@ -123,8 +125,10 @@
         </div>
         </div>
         <div id="headertwo">
-        <img class="header" src="img/platzi-logo.png" width="258px" height="100px" alt="Platzi logo">
-        <img class="header" src="img/SpaceX_logo_black.svg.png" width="332px" height="41px" alt="SpaceX logo">
+        <div id="logo1" class="pruebas"> <img class="header" src="img/platzi-logo.png" width="258px" height="100px" alt="Platzi logo">
+        </div>
+        <div id="logo2" class="pruebas"> <img class="header" src="img/SpaceX_logo_black.svg.png" width="332px" height="41px" alt="SpaceX logo">
+        </div>
         </div>
         
     </header>
