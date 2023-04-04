@@ -31,28 +31,23 @@ function getCountDownTimer(launchDate) {
 
 function printLaunch(result, selector) {
   const title = document.querySelector(`#title${selector}`);
-  title.textContent = `${result.name}`;
+  title.textContent = `${result.results[0].name}`;
 
   const img = document.querySelector(`#img${selector}`);
-  let imgUrl = `${result.links.patch.small}`;
-
-  if (imgUrl === 'null' || imgUrl == null) {
-    imgUrl = 'img/astronauta.png';
-    img.setAttribute('width', '60%');
-    img.setAttribute('height', '60%');
-    img.setAttribute('alt', 'mission logo');
-  }
-
+  let imgUrl = result.results[0]?.mission_patches?.image_url || 'img/astronauta.png';
+  img.setAttribute('width', '60%');
+  img.setAttribute('height', '60%');
+  img.setAttribute('alt', 'mission logo');
   img.setAttribute('src', imgUrl);
 
   const date = document.querySelector(`#date${selector}`);
-  date.textContent = `${result.date_local}`;
+  date.textContent = `${result.results[0].net}`;
 
   const moreInfo = document.querySelector(`#more${selector}`);
-  moreInfo.setAttribute('href', `launch.html?id=${result.id}`);
+  moreInfo.setAttribute('href', `launch.html?id=${result.results[0].id}`);
 
   if (selector === '-upcoming') {
-    getCountDownTimer(result.date_local);
+    getCountDownTimer(result.results[0].net);
   }
 }
 
@@ -82,15 +77,15 @@ function printPastLaunchesList(result) {
   Object.keys(result).forEach((k) => launchesDiv.appendChild(createElement(result[k], k)));
 }
 
-const apiBaseUrl = 'https://api.spacexdata.com/v5/';
+const apiBaseUrl = 'https://ll.thespacedevs.com/';
+const upcomingApi = `${apiBaseUrl}2.2.0/launch/upcoming/?format=json&search=SpaceX&limit=1`;
 
-const upcomingApi = `${apiBaseUrl}launches/next`;
 const upcomingSelector = '-upcoming';
 
-const latestApi = `${apiBaseUrl}launches/latest`;
+const latestApi = `${apiBaseUrl}2.2.0/launch/previous/?format=json&search=SpaceX&limit=1`;
 const latestSelector = '-latest';
 
-const pastLaunchesApi = `${apiBaseUrl}launches/past`;
+const pastLaunchesApi = `${apiBaseUrl}2.2.0/launch/previous/?format=json&search=SpaceX&limit=100`;
 
 getApiResponse(upcomingApi)
   .then((result) => printLaunch(result, upcomingSelector))
@@ -101,5 +96,5 @@ getApiResponse(latestApi)
   .catch((error) => console.log('error', error));
 
 getApiResponse(pastLaunchesApi)
-  .then((result) => printPastLaunchesList(result))
+  .then((result) => printPastLaunchesList(result.results))
   .catch((error) => console.log('error', error));
