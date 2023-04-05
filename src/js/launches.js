@@ -1,4 +1,4 @@
-import { getApiResponse } from './data.js';
+import { getApiResponse, apiBaseUrl } from './data.js';
 
 /* eslint-disable no-console */
 function getCountDownTimer(launchDate) {
@@ -77,15 +77,14 @@ function printPastLaunchesList(result) {
   Object.keys(result).forEach((k) => launchesDiv.appendChild(createElement(result[k], k)));
 }
 
-const apiBaseUrl = 'https://ll.thespacedevs.com/';
-const upcomingApi = `${apiBaseUrl}2.2.0/launch/upcoming/?format=json&search=SpaceX&limit=1`;
+const upcomingApi = `${apiBaseUrl}upcoming/?format=json&search=SpaceX&limit=1`;
 
 const upcomingSelector = '-upcoming';
 
-const latestApi = `${apiBaseUrl}2.2.0/launch/previous/?format=json&search=SpaceX&limit=1`;
+const latestApi = `${apiBaseUrl}previous/?format=json&search=SpaceX&limit=1`;
 const latestSelector = '-latest';
 
-const pastLaunchesApi = `${apiBaseUrl}2.2.0/launch/previous/?format=json&search=SpaceX&limit=100`;
+const pastLaunchesApi = `${apiBaseUrl}previous/?format=json&search=SpaceX&limit=100`;
 
 getApiResponse(upcomingApi)
   .then((result) => printLaunch(result, upcomingSelector))
