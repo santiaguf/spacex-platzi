@@ -28,7 +28,6 @@ const getCountDownTimer = (launchDate) => {
 }
 
 const printHomeLaunch = (result, selector) => {
-  console.log(result);
   const title = document.querySelector(`#title${selector}`);
   title.textContent = `${result.results[0].name}`;
 
@@ -74,9 +73,7 @@ const printSingleLaunch = (result) => {
   details.textContent = `${result.mission.description}`;
 }
 
-const printLaunch = (result, selector) => {
-  selector === null ? printSingleLaunch(result) : printHomeLaunch(result, selector);
-}
+const printLaunch = (result, selector) => selector === null ? printSingleLaunch(result) : printHomeLaunch(result, selector);
 
 export const getApiResponse = async (url) => {
   const requestOptions = {
@@ -93,30 +90,35 @@ export const getApiResponse = async (url) => {
   }
 }
 
+const isStorageAvailable = () => typeof(Storage) !== 'undefined';
+
+const handleApiLimit = (launchId, result, selector) => {
+  if (result.detail) {
+    const responseObjet = {
+      name: result.detail,
+      results: [{
+          name: result.detail},
+      ]
+    };
+    printLaunch(responseObjet, selector);
+  } else {
+    if (isStorageAvailable()) localStorage.setItem(launchId, JSON.stringify(result));
+    printLaunch(result, selector);
+  }
+}
+
 export const requestData = (launchId, launchApiUrl, selector) => {
-  // check if browser supports localStorage
-  if (typeof(Storage) !== 'undefined') {
-    // check if there is cahed data for specific launch
-    let cachedData = localStorage.getItem(launchId);
-    if (cachedData) {
-      cachedData = JSON.parse(cachedData);
-      printLaunch(cachedData, selector);
-    } else {
-      // if there is no cached data, we will request it
+  let cachedData = localStorage.getItem(launchId);
+  if (!isStorageAvailable() || !cachedData) {
       getApiResponse(launchApiUrl)
         .then((result) => {
-          localStorage.setItem(launchId, JSON.stringify(result));
-          printLaunch(result, selector);
+          handleApiLimit(launchId, result, selector);
         })
         .catch((error) => console.log('error', error));
-    }
-  } else {
-   // if browser does not support localStorage, we will request data
-    getApiResponse(launchApiUrl)
-      .then((result) => printLaunch(result, selector))
-      .catch((error) => console.log('error', error));
+    } else {
+    cachedData = JSON.parse(cachedData);
+    printLaunch(cachedData, selector);
   }
-
 }
 
 export const apiBaseUrl = 'https://ll.thespacedevs.com/2.2.0/launch/';
