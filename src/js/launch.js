@@ -10,4 +10,4 @@ const launchId = url.searchParams.get('id') ?? DEFAULT_LAUNCH_ID;
 
 const launchApiUrl = `${apiBaseUrl}${launchId}/?format=json`;
 
-requestData(launchId, launchApiUrl);
+requestData(launchId, launchApiUrl, null);

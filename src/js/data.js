@@ -1,4 +1,55 @@
 
+const getCountDownTimer = (launchDate) => {
+  // Set the date we're counting down to
+  const countDownDate = new Date(launchDate).getTime();
+  // Update the count down every 1 second
+  const x = setInterval(() => {
+    // Get today's date and time
+    const now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    const distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="countdown-upcoming"
+    document.getElementById('countdown-upcoming').innerHTML = `${days}days ${hours}hours ${minutes}minutes ${seconds}seconds `;
+
+    // If the count down is over, write some text
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById('countdown-upcoming').innerHTML = 'EXPIRED';
+    }
+  }, 1000);
+}
+
+const printHomeLaunch = (result, selector) => {
+  console.log(result);
+  const title = document.querySelector(`#title${selector}`);
+  title.textContent = `${result.results[0].name}`;
+
+  const img = document.querySelector(`#img${selector}`);
+  let imgUrl = result.results[0]?.mission_patches?.image_url || 'img/astronauta.png';
+  img.setAttribute('width', '60%');
+  img.setAttribute('height', '60%');
+  img.setAttribute('alt', 'mission logo');
+  img.setAttribute('src', imgUrl);
+
+  const date = document.querySelector(`#date${selector}`);
+  date.textContent = `${result.results[0].net}`;
+
+  const moreInfo = document.querySelector(`#more${selector}`);
+  moreInfo.setAttribute('href', `launch.html?id=${result.results[0].id}`);
+
+  if (selector === '-upcoming') {
+    getCountDownTimer(result.results[0].net);
+  }
+}
+
 const printSingleLaunch = (result) => {
   const title = document.querySelector('#title-launch');
   title.textContent = `${result.name}`;
@@ -23,6 +74,10 @@ const printSingleLaunch = (result) => {
   details.textContent = `${result.mission.description}`;
 }
 
+const printLaunch = (result, selector) => {
+  selector === null ? printSingleLaunch(result) : printHomeLaunch(result, selector);
+}
+
 export const getApiResponse = async (url) => {
   const requestOptions = {
     method: 'GET',
@@ -38,27 +93,27 @@ export const getApiResponse = async (url) => {
   }
 }
 
-export const requestData = (launchId, launchApiUrl) => {
+export const requestData = (launchId, launchApiUrl, selector) => {
   // check if browser supports localStorage
   if (typeof(Storage) !== 'undefined') {
     // check if there is cahed data for specific launch
     let cachedData = localStorage.getItem(launchId);
     if (cachedData) {
       cachedData = JSON.parse(cachedData);
-      printSingleLaunch(cachedData);
+      printLaunch(cachedData, selector);
     } else {
       // if there is no cached data, we will request it
       getApiResponse(launchApiUrl)
         .then((result) => {
           localStorage.setItem(launchId, JSON.stringify(result));
-          printSingleLaunch(result);
+          printLaunch(result, selector);
         })
         .catch((error) => console.log('error', error));
     }
   } else {
    // if browser does not support localStorage, we will request data
     getApiResponse(launchApiUrl)
-      .then((result) => printSingleLaunch(result))
+      .then((result) => printLaunch(result, selector))
       .catch((error) => console.log('error', error));
   }
 
