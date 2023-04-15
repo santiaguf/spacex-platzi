@@ -73,6 +73,33 @@ const printSingleLaunch = (result) => {
   details.textContent = `${result.mission.description}`;
 }
 
+function createElement(launch, count) {
+  const div = document.createElement('div');
+  div.setAttribute('id', `card-${count}`);
+  div.setAttribute('class', 'launch-title-card');
+
+  const link = document.createElement('a');
+  link.setAttribute('id', `link-${count}`);
+  link.setAttribute('class', 'badge badge-secondary');
+  link.setAttribute('href', `launch.html?id=${launch.id}`);
+  div.appendChild(link);
+
+  const launchNumber = parseInt(count, 10) + 1;
+
+  const paragraph = document.createElement('p');
+  paragraph.setAttribute('id', `item-${count}`);
+  paragraph.textContent = `${launchNumber}. ${launch.name}`;
+  link.appendChild(paragraph);
+
+  return div;
+}
+
+function printPastLaunchesList(result) {
+  const launches = result.results;
+  const launchesDiv = document.querySelector('#past-launches');
+  Object.keys(launches).forEach((k) => launchesDiv.appendChild(createElement(launches[k], k)));
+}
+
 const printLaunch = (result, selector) => selector === null ? printSingleLaunch(result) : printHomeLaunch(result, selector);
 
 export const getApiResponse = async (url) => {
@@ -107,6 +134,21 @@ const handleApiLimit = (launchId, result, selector) => {
   }
 }
 
+const handleApiLimitAllLaunches = (result) => {
+  if (result.detail) {
+    const responseObjet = {
+      name: result.detail,
+      results: [{
+          name: result.detail},
+      ]
+    };
+    printPastLaunchesList(responseObjet);
+  } else {
+    if (isStorageAvailable()) localStorage.setItem('allLaunches', JSON.stringify(result));
+    printPastLaunchesList(result);
+  }
+}
+
 export const requestData = (launchId, launchApiUrl, selector) => {
   let cachedData = localStorage.getItem(launchId);
   if (!isStorageAvailable() || !cachedData) {
@@ -118,6 +160,18 @@ export const requestData = (launchId, launchApiUrl, selector) => {
     } else {
     cachedData = JSON.parse(cachedData);
     printLaunch(cachedData, selector);
+  }
+}
+
+export const requestDataAllLaunches = (launchApiUrl) => {
+  let cachedData = localStorage.getItem('allLaunches');
+  if (!isStorageAvailable() || !cachedData) {
+      getApiResponse(launchApiUrl)
+        .then((result) => handleApiLimitAllLaunches(result))
+        .catch((error) => console.log('error', error));
+    } else {
+    cachedData = JSON.parse(cachedData);
+    printPastLaunchesList(cachedData);
   }
 }
 
