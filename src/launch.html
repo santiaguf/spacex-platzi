@@ -130,8 +130,15 @@
         </div>
     </section>
     <footer>
-        <p>Developed by <a class="links" href="https://sb.js.org/">Santiago Bernal</a> - <a class="links" href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a></p>
+        <p>Developed by <a class="links" href="https://sb.js.org/">Santiago Bernal</a> and <a class="links" href="https://github.com/monocuka">Eliana Osorio</a> - <a class="links" href="https://github.com/santiaguf/spacex-platzi" target="_blank">Code</a> <br> Is the data too old? try <a id="clear-cache" class="links" href="#">clearing the cache</a></p>
     </footer>
     <script defer type="module" src="js/launch.js"></script>
+    <script defer type="text/javascript">
+        const clearcache = document.getElementById('clear-cache');
+        clearcache.addEventListener('click', () => {
+            localStorage.clear();
+            window.location.reload();
+        });
+    </script>
 </body>
 </html>
