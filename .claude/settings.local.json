@@ -17,7 +17,10 @@
       "Bash(python3 -m json.tool)",
       "Bash(curl -s 'https://ll.thespacedevs.com/2.2.0/launch/bc325945-4bee-4412-84e1-14998b2eba5f/?format=json')",
       "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); print\\('Has mission_patches:', 'mission_patches' in data\\); print\\('mission key exists:', 'mission' in data\\); mission = data.get\\('mission', {}\\); print\\('mission patches:', mission.get\\('mission_patches', 'NOT IN MISSION'\\)\\)\")",
-      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); patches = data.get\\('mission_patches', []\\); print\\('mission_patches type:', type\\(patches\\)\\); print\\('mission_patches length:', len\\(patches\\) if isinstance\\(patches, list\\) else 'not a list'\\); print\\('First patch:', patches[0] if patches else 'EMPTY'\\)\")"
+      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); patches = data.get\\('mission_patches', []\\); print\\('mission_patches type:', type\\(patches\\)\\); print\\('mission_patches length:', len\\(patches\\) if isinstance\\(patches, list\\) else 'not a list'\\); print\\('First patch:', patches[0] if patches else 'EMPTY'\\)\")",
+      "Bash(python3 -c 'import json, sys; data = json.load\\(sys.stdin\\); perf = data['\\\\''categories'\\\\'']['\\\\''performance'\\\\'']; print\\('\\\\''Performance Score:'\\\\'', perf['\\\\''score'\\\\'']\\); print\\('\\\\''\\\\nAudits with issues:'\\\\''\\); audits = data['\\\\''audits'\\\\'']; for key, audit in audits.items\\(\\): *)",
+      "Bash(python3 *)",
+      "Bash(grep -E '\\\\.\\(png|jpg|jpeg\\)$')"
     ]
   }
 }

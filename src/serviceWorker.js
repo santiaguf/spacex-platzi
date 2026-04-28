@@ -2,7 +2,7 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable no-undef */
 /* eslint-disable no-restricted-globals */
-const platzinautas = 'platzinautas-site-v4';
+const platzinautas = 'platzinautas-site-v5';
 const assets = [
   '/',
   'index.html',

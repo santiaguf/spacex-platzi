@@ -50,10 +50,15 @@ const printHomeLaunch = (result, selector) => {
 
   const img = document.querySelector(`#img${selector}`);
   let imgUrl = result.results[0]?.image || 'img/astronauta.png';
-  img.setAttribute('width', '60%');
-  img.setAttribute('height', '60%');
+  img.setAttribute('width', '400');
+  img.setAttribute('height', '300');
   img.setAttribute('alt', 'mission logo');
   img.setAttribute('src', imgUrl);
+  img.setAttribute('fetchpriority', 'high');
+  img.setAttribute('loading', 'eager');
+  img.style.width = '60%';
+  img.style.height = 'auto';
+  img.style.objectFit = 'contain';
 
   const date = document.querySelector(`#date${selector}`);
   date.textContent = `${result.results[0].net}`;
@@ -73,10 +78,13 @@ const printSingleLaunch = (result) => {
   const img = document.querySelector('#img-launch');
   let imgUrl = result.mission_patches?.[0]?.image_url || 'img/astronauta.png';
 
-  img.setAttribute('width', '60%');
-  img.setAttribute('height', '60%');
+  img.setAttribute('width', '400');
+  img.setAttribute('height', '400');
   img.setAttribute('alt', 'mission logo');
   img.setAttribute('src', imgUrl);
+  img.style.width = '40%';
+  img.style.height = 'auto';
+  img.style.objectFit = 'contain';
 
   const date = document.querySelector('#date-launch');
   date.textContent = `${result.net}`;
