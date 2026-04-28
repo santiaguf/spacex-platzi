@@ -1,9 +1,26 @@
+let countdownInterval = null;
+
+const clearCountdown = () => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+  }
+};
 
 const getCountDownTimer = (launchDate) => {
+  clearCountdown();
+
   // Set the date we're counting down to
   const countDownDate = new Date(launchDate).getTime();
   // Update the count down every 1 second
-  const x = setInterval(() => {
+  countdownInterval = setInterval(() => {
+    const countdownElement = document.getElementById('countdown-upcoming');
+
+    if (!countdownElement) {
+      clearCountdown();
+      return;
+    }
+
     // Get today's date and time
     const now = new Date().getTime();
 
@@ -17,12 +34,12 @@ const getCountDownTimer = (launchDate) => {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     // Output the result in an element with id="countdown-upcoming"
-    document.getElementById('countdown-upcoming').innerHTML = `${days}days ${hours}hours ${minutes}minutes ${seconds}seconds `;
+    countdownElement.innerHTML = `${days}days ${hours}hours ${minutes}minutes ${seconds}seconds `;
 
     // If the count down is over, write some text
     if (distance < 0) {
-      clearInterval(x);
-      document.getElementById('countdown-upcoming').innerHTML = 'EXPIRED';
+      clearCountdown();
+      countdownElement.innerHTML = 'EXPIRED';
     }
   }, 1000);
 }
@@ -42,7 +59,7 @@ const printHomeLaunch = (result, selector) => {
   date.textContent = `${result.results[0].net}`;
 
   const moreInfo = document.querySelector(`#more${selector}`);
-  moreInfo.setAttribute('href', `launch.html?id=${result.results[0].id}`);
+  moreInfo.setAttribute('href', `#/launch/${result.results[0].id}`);
 
   if (selector === '-upcoming') {
     getCountDownTimer(result.results[0].net);
@@ -81,7 +98,7 @@ function createElement(launch, count) {
   const link = document.createElement('a');
   link.setAttribute('id', `link-${count}`);
   link.setAttribute('class', 'badge badge-secondary');
-  link.setAttribute('href', `launch.html?id=${launch.id}`);
+  link.setAttribute('href', `#/launch/${launch.id}`);
   div.appendChild(link);
 
   const launchNumber = parseInt(count, 10) + 1;
@@ -176,3 +193,4 @@ export const requestDataAllLaunches = (launchApiUrl) => {
 }
 
 export const apiBaseUrl = 'https://ll.thespacedevs.com/2.2.0/launch/';
+export { clearCountdown };
