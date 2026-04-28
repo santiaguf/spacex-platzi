@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
-import { apiBaseUrl, requestData, requestDataAllLaunches } from '../data.js';
+import { apiBaseUrl, requestData, requestDataAllLaunches, clearCountdown } from '../data.js';
 
 export const renderHomePage = () => {
+  clearCountdown();
+
   const app = document.getElementById('app');
 
   app.innerHTML = `
