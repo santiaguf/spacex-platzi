@@ -35,7 +35,7 @@
     "eslint": "^8.27.0",
     "htmlhint": "^1.1.4",
     "localtunnel": "^2.0.2",
-    "serve": "^14.1.1"
+    "serve": "^14.2.6"
   },
   "dependencies": {
     "@babel/core": "^7.20.2",
