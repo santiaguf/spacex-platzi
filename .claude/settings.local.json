@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/css/styles.css)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/js/app.js)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/js/router.js)",
+      "Bash(pkill *)",
+      "Bash(curl -s 'https://ll.thespacedevs.com/2.2.0/launch/previous/?format=json&search=SpaceX&limit=1')",
+      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); print\\('mission_patches:', data['results'][0].get\\('mission_patches', 'NOT FOUND'\\)\\)\")",
+      "Bash(curl -s 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?format=json&search=SpaceX&limit=1')",
+      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); import pprint; print\\('Keys:', list\\(data['results'][0].keys\\(\\)\\)[:20]\\)\")",
+      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); print\\('mission:', data['results'][0].get\\('mission'\\)\\); print\\('image:', data['results'][0].get\\('image'\\)\\)\")",
+      "Bash(curl -s 'https://ll.thespacedevs.com/2.2.0/launch/d3a6d59f-c38d-4fcd-9f5d-b091aa14afa9/?format=json')",
+      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); print\\('Has mission_patches:', 'mission_patches' in data\\); print\\('Has image:', 'image' in data\\); print\\('Keys:', [k for k in data.keys\\(\\) if 'image' in k.lower\\(\\) or 'patch' in k.lower\\(\\)]\\)\")",
+      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); print\\('All keys:', list\\(data.keys\\(\\)\\)\\)\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s 'https://ll.thespacedevs.com/2.2.0/launch/bc325945-4bee-4412-84e1-14998b2eba5f/?format=json')",
+      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); print\\('Has mission_patches:', 'mission_patches' in data\\); print\\('mission key exists:', 'mission' in data\\); mission = data.get\\('mission', {}\\); print\\('mission patches:', mission.get\\('mission_patches', 'NOT IN MISSION'\\)\\)\")",
+      "Bash(python3 -c \"import json, sys; data = json.load\\(sys.stdin\\); patches = data.get\\('mission_patches', []\\); print\\('mission_patches type:', type\\(patches\\)\\); print\\('mission_patches length:', len\\(patches\\) if isinstance\\(patches, list\\) else 'not a list'\\); print\\('First patch:', patches[0] if patches else 'EMPTY'\\)\")",
+      "Bash(python3 -c 'import json, sys; data = json.load\\(sys.stdin\\); perf = data['\\\\''categories'\\\\'']['\\\\''performance'\\\\'']; print\\('\\\\''Performance Score:'\\\\'', perf['\\\\''score'\\\\'']\\); print\\('\\\\''\\\\nAudits with issues:'\\\\''\\); audits = data['\\\\''audits'\\\\'']; for key, audit in audits.items\\(\\): *)",
+      "Bash(python3 *)",
+      "Bash(grep -E '\\\\.\\(png|jpg|jpeg\\)$')"
+    ]
+  }
+}

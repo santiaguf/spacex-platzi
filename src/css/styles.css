@@ -1,0 +1,141 @@
+/* Header Styles */
+header {
+    background-color: #595959;
+    color: white;
+    width: 100%;
+}
+
+header img {
+    max-width: 100%;
+    height: auto;
+}
+
+#headerone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0%;
+}
+
+#headertwo {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Card Styles */
+.card {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    background-color: #9191915b;
+    border-radius: 10%;
+    margin: 5%;
+}
+
+.card-container {
+    display: block;
+    text-align: center;
+}
+
+/* Layout Styles */
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+#btn-one {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2%;
+}
+
+button {
+    padding: 1%;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #595959;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+/* Link Styles */
+.header {
+    display: inline;
+}
+
+.links:link {
+    color: #C9E09E;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.featured-launches-links {
+    color: #004BAD;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+/* Past Launches Styles */
+.past-launches {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.launch-title-card {
+    margin: 1%;
+    padding: 1%;
+    border-radius: 1em;
+    background-color: #cdcbcb88;
+}
+
+/* Utility Classes */
+.hide {
+    display: none;
+}
+
+.col-sm-6 {
+    background-color: #f3f8fb;
+    display: inline-block;
+}
+
+/* View Containers */
+.view-home,
+.view-launch {
+    width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 751px) {
+    #headerone {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    #headertwo {
+        display: flex;
+        flex-direction: column-reverse;
+        padding-left: 5%;
+    }
+}
