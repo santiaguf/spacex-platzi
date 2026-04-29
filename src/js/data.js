@@ -34,12 +34,12 @@ const getCountDownTimer = (launchDate) => {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     // Output the result in an element with id="countdown-upcoming"
-    countdownElement.innerHTML = `${days}days ${hours}hours ${minutes}minutes ${seconds}seconds `;
+    countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
     // If the count down is over, write some text
     if (distance < 0) {
       clearCountdown();
-      countdownElement.innerHTML = 'EXPIRED';
+      countdownElement.innerHTML = '🚀 Launch time!';
     }
   }, 1000);
 }
@@ -90,12 +90,16 @@ const printSingleLaunch = (result) => {
   date.textContent = `${result.net}`;
 
   const video = document.querySelector('#video-launch');
-  const youtubeUrl = result.vidURLs[0]?.url;
+  const youtubeUrl = result.vidURLs?.[0]?.url;
   const youtubeId = youtubeUrl?.split('v=')[1];
-  video.setAttribute('src', `https://www.youtube.com/embed/${youtubeId}`);
+  if (youtubeId) {
+    video.setAttribute('src', `https://www.youtube.com/embed/${youtubeId}`);
+  } else {
+    video.parentElement.style.display = 'none';
+  }
 
   const details = document.querySelector('#details-launch');
-  details.textContent = `${result.mission.description}`;
+  details.textContent = result.mission?.description || 'No description available.';
 }
 
 function createElement(launch, count) {
@@ -148,6 +152,9 @@ export const getApiResponse = async (url) => {
 
 const isStorageAvailable = () => typeof(Storage) !== 'undefined';
 
+const isValidSingleLaunch = (result) => result && result.id && result.name;
+const isValidListResponse = (result) => result && result.results && Array.isArray(result.results);
+
 const handleApiLimit = (launchId, result, selector) => {
   if (!result) {
     const errorResponse = {
@@ -168,7 +175,10 @@ const handleApiLimit = (launchId, result, selector) => {
       ]
     };
     printLaunch(responseObjet, selector);
-  } else if (result.results && Array.isArray(result.results)) {
+  } else if (selector === null && isValidSingleLaunch(result)) {
+    if (isStorageAvailable()) localStorage.setItem(launchId, JSON.stringify(result));
+    printSingleLaunch(result);
+  } else if (isValidListResponse(result)) {
     if (isStorageAvailable()) localStorage.setItem(launchId, JSON.stringify(result));
     printLaunch(result, selector);
   } else {
@@ -219,34 +229,34 @@ const handleApiLimitAllLaunches = (result) => {
 export const requestData = (launchId, launchApiUrl, selector) => {
   let cachedData = localStorage.getItem(launchId);
 
-  if (!isStorageAvailable() || !cachedData) {
+  const fetchFromApi = () => {
     getApiResponse(launchApiUrl)
       .then((result) => {
         handleApiLimit(launchId, result, selector);
       })
       .catch((error) => console.log('error', error));
+  };
+
+  if (!isStorageAvailable() || !cachedData) {
+    fetchFromApi();
   } else {
     try {
       cachedData = JSON.parse(cachedData);
 
-      if (cachedData && cachedData.results && Array.isArray(cachedData.results)) {
+      const isValidCache = (selector === null)
+        ? isValidSingleLaunch(cachedData)
+        : isValidListResponse(cachedData);
+
+      if (isValidCache) {
         printLaunch(cachedData, selector);
       } else {
         localStorage.removeItem(launchId);
-        getApiResponse(launchApiUrl)
-          .then((result) => {
-            handleApiLimit(launchId, result, selector);
-          })
-          .catch((error) => console.log('error', error));
+        fetchFromApi();
       }
     } catch (error) {
       console.log('error parsing cached data:', error);
       localStorage.removeItem(launchId);
-      getApiResponse(launchApiUrl)
-        .then((result) => {
-          handleApiLimit(launchId, result, selector);
-        })
-        .catch((error) => console.log('error', error));
+      fetchFromApi();
     }
   }
 }
